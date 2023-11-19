@@ -1,13 +1,31 @@
 import { useState } from 'react';
 
+const Button = ({ functionality, text }) => {
+	return <button onClick={functionality}>{text}</button>;
+};
+
 const Feedback = ({ handleGood, handleNeutral, handleBad }) => {
 	return (
 		<>
 			<h1>give feedback</h1>
-			<button onClick={handleGood}>good</button>
-			<button onClick={handleNeutral}>neutral</button>
-			<button onClick={handleBad}>bad</button>
+			<Button functionality={handleGood} text='good'>
+				good
+			</Button>
+			<Button functionality={handleNeutral} text='neutral'>
+				neutral
+			</Button>
+			<Button functionality={handleBad} text='bad'>
+				bad
+			</Button>
 		</>
+	);
+};
+
+const StatisticLine = ({ text, value }) => {
+	return (
+		<p>
+			{text} {value}
+		</p>
 	);
 };
 
@@ -19,12 +37,12 @@ const Statistics = ({ good, neutral, bad }) => {
 			<h1>statistics</h1>
 			{total > 0 ? (
 				<>
-					<p>good: {good}</p>
-					<p>neutral: {neutral}</p>
-					<p>bad: {bad}</p>
-					<p>all: {total}</p>
-					<p>average: {(good - bad) / total}</p>
-					<p>positive: {good / total}%</p>
+					<StatisticLine text='good' value={good} />
+					<StatisticLine text='neutral' value={neutral} />
+					<StatisticLine text='bad' value={bad} />
+					<StatisticLine text='all' value={total} />
+					<StatisticLine text='average' value={(good - bad) / total} />
+					<StatisticLine text='positive' value={good / total + '%'} />
 				</>
 			) : (
 				<p>no feedback given</p>
